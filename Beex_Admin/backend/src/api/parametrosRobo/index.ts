@@ -1,0 +1,42 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/parametros-robo`,
+    require('./parametrosRoboCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/parametros-robo/:id`,
+    require('./parametrosRoboUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/parametros-robo/import`,
+    require('./parametrosRoboImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/parametros-robo`,
+    require('./parametrosRoboDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/parametros-robo/autocomplete`,
+    require('./parametrosRoboAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/parametros-robo`,
+    require('./parametrosRoboList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/parametros-robo/:id`,
+    require('./parametrosRoboFind').default,
+  );
+  app.get(
+    `/tenant/:tenantId/parametros-robo/robo/:robo/versao/:versao/configuracao/:configuracao`,
+    require('./parametrosRoboFindConfiguracao').default,
+  );  
+  /** By Magno */
+  /*
+  app.get(
+    `/tenant/:tenantId/parametros-robo/configuracao`,
+    require('./parametrosRoboFindConfiguracao').default,
+  );
+  */  
+  /** By Magno */
+};

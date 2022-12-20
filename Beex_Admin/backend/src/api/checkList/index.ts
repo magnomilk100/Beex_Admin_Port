@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/check-list`,
+    require('./checkListCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/check-list/:id`,
+    require('./checkListUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/check-list/import`,
+    require('./checkListImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/check-list`,
+    require('./checkListDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/check-list/autocomplete`,
+    require('./checkListAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/check-list`,
+    require('./checkListList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/check-list/:id`,
+    require('./checkListFind').default,
+  );
+};

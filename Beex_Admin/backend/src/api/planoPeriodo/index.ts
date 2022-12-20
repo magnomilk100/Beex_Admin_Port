@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/plano-periodo`,
+    require('./planoPeriodoCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/plano-periodo/:id`,
+    require('./planoPeriodoUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/plano-periodo/import`,
+    require('./planoPeriodoImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/plano-periodo`,
+    require('./planoPeriodoDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/plano-periodo/autocomplete`,
+    require('./planoPeriodoAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/plano-periodo`,
+    require('./planoPeriodoList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/plano-periodo/:id`,
+    require('./planoPeriodoFind').default,
+  );
+};

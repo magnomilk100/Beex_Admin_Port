@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/pais`,
+    require('./paisCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/pais/:id`,
+    require('./paisUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/pais/import`,
+    require('./paisImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/pais`,
+    require('./paisDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/pais/autocomplete`,
+    require('./paisAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/pais`,
+    require('./paisList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/pais/:id`,
+    require('./paisFind').default,
+  );
+};

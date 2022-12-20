@@ -1,0 +1,203 @@
+import { Button, Grid } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import SaveIcon from '@material-ui/icons/Save';
+import UndoIcon from '@material-ui/icons/Undo';
+import React, { useState } from 'react';
+import { i18n } from 'src/i18n';
+import FormWrapper, {
+  FormButtons,
+} from 'src/view/shared/styles/FormWrapper';
+import { useForm, FormProvider } from 'react-hook-form';
+import * as yup from 'yup';
+import yupFormSchemas from 'src/modules/shared/yup/yupFormSchemas';
+import { yupResolver } from '@hookform/resolvers/yup';
+import InputFormItem from 'src/view/shared/form/items/InputFormItem';
+import TextAreaFormItem from 'src/view/shared/form/items/TextAreaFormItem';
+import TextAreaExpandidoFormItem from 'src/view/shared/form/items/TextAreaExpandidoFormItem';
+import SelectFormItem from 'src/view/shared/form/items/SelectFormItem';
+import parametrosRoboEnumerators from 'src/modules/parametrosRobo/parametrosRoboEnumerators';
+import moment from 'moment';
+import DatePickerFormItem from 'src/view/shared/form/items/DatePickerFormItem';
+import RoboAutocompleteFormItem from 'src/view/robo/autocomplete/RoboAutocompleteFormItem';
+
+const schema = yup.object().shape({
+  data: yupFormSchemas.datetime(
+    i18n('entities.parametrosRobo.fields.data'),
+    {
+      "required": true
+    },
+  ),
+  robo: yupFormSchemas.relationToOne(
+    i18n('entities.parametrosRobo.fields.robo'),
+    {
+      "required": true
+    },
+  ),
+  versao: yupFormSchemas.string(
+    i18n('entities.parametrosRobo.fields.versao'),
+    {
+      "required": true
+    },
+  ),
+  configuracao: yupFormSchemas.enumerator(
+    i18n('entities.parametrosRobo.fields.configuracao'),
+    {
+      "options": parametrosRoboEnumerators.configuracao
+    },
+  ),
+  observacao: yupFormSchemas.string(
+    i18n('entities.parametrosRobo.fields.observacao'),
+    {},
+  ),
+  parametros: yupFormSchemas.string(
+    i18n('entities.parametrosRobo.fields.parametros'),
+    {
+      "required": true
+    },
+  ),
+});
+
+function ParametrosRoboForm(props) {
+  const [initialValues] = useState(() => {
+    const record = props.record || {};
+
+    return {
+      data: record.data ? moment(record.data) : null,
+      robo: record.robo,
+      versao: record.versao,
+      configuracao: record.configuracao,
+      observacao: record.observacao,
+      parametros: record.parametros,
+    };
+  });
+
+  const form = useForm({
+    resolver: yupResolver(schema),
+    mode: 'all',
+    defaultValues: initialValues as any,
+  });
+
+  const onSubmit = (values) => {
+    props.onSubmit(props.record?.id, values);
+  };
+
+  const onReset = () => {
+    Object.keys(initialValues).forEach((key) => {
+      form.setValue(key, initialValues[key]);
+    });
+  };
+
+  const { saveLoading, modal } = props;
+
+  return (
+    <FormWrapper>
+      <FormProvider {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <Grid spacing={2} container>
+            <Grid item lg={7} md={8} sm={12} xs={12}>
+              <DatePickerFormItem
+                name="data"
+                label={i18n('entities.parametrosRobo.fields.data')}
+              hint={i18n('entities.parametrosRobo.hints.data')}
+                required={true}
+                showTime
+              />
+            </Grid>
+            <Grid item lg={7} md={8} sm={12} xs={12}>
+              <RoboAutocompleteFormItem  
+                name="robo"
+                label={i18n('entities.parametrosRobo.fields.robo')}
+              hint={i18n('entities.parametrosRobo.hints.robo')}
+                required={true}
+                showCreate={!props.modal}
+              />
+            </Grid>
+            <Grid item lg={7} md={8} sm={12} xs={12}>
+              <InputFormItem
+                name="versao"
+                label={i18n('entities.parametrosRobo.fields.versao')}
+              hint={i18n('entities.parametrosRobo.hints.versao')}  
+                required={true}
+              />
+            </Grid>
+            <Grid item lg={7} md={8} sm={12} xs={12}>
+              <SelectFormItem
+                name="configuracao"
+                label={i18n('entities.parametrosRobo.fields.configuracao')}
+              hint={i18n('entities.parametrosRobo.hints.configuracao')}
+                options={parametrosRoboEnumerators.configuracao.map(
+                  (value) => ({
+                    value,
+                    label: i18n(
+                      `entities.parametrosRobo.enumerators.configuracao.${value}`,
+                    ),
+                  }),
+                )}
+                required={false}
+              />
+            </Grid>
+            <Grid item lg={7} md={8} sm={12} xs={12}>
+              <TextAreaFormItem
+                name="observacao"
+                label={i18n('entities.parametrosRobo.fields.observacao')}
+              hint={i18n('entities.parametrosRobo.hints.observacao')}  
+                required={false}
+              />
+            </Grid>
+            <Grid item lg={7} md={8} sm={12} xs={12}>
+              <TextAreaExpandidoFormItem
+                name="parametros"
+                label={i18n('entities.parametrosRobo.fields.parametros')}
+              hint={i18n('entities.parametrosRobo.hints.parametros')}  
+                required={true}
+              />
+            </Grid>
+          </Grid>
+          <FormButtons
+            style={{
+              flexDirection: modal
+                ? 'row-reverse'
+                : undefined,
+            }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={saveLoading}
+              type="button"
+              onClick={form.handleSubmit(onSubmit)}
+              startIcon={<SaveIcon />}
+              size="small"
+            >
+              {i18n('common.save')}
+            </Button>
+
+            <Button
+              disabled={saveLoading}
+              onClick={onReset}
+              type="button"
+              startIcon={<UndoIcon />}
+              size="small"
+            >
+              {i18n('common.reset')}
+            </Button>
+
+            {props.onCancel ? (
+              <Button
+                disabled={saveLoading}
+                onClick={() => props.onCancel()}
+                type="button"
+                startIcon={<CloseIcon />}
+                size="small"
+              >
+                {i18n('common.cancel')}
+              </Button>
+            ) : null}
+          </FormButtons>
+        </form>
+      </FormProvider>
+    </FormWrapper>
+  );
+}
+
+export default ParametrosRoboForm;

@@ -1,0 +1,134 @@
+import Permissions from 'src/security/permissions';
+import { i18n } from 'src/i18n';
+import React from 'react';
+import CreditCardOutlinedIcon from '@material-ui/icons/CreditCardOutlined';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import PersonIcon from '@material-ui/icons/Person';
+import HistoryIcon from '@material-ui/icons/History';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import config from 'src/config';
+
+const permissions = Permissions.values;
+
+export default [
+  {
+    path: '/',
+    exact: true,
+    icon: <DashboardIcon />,
+    label: i18n('dashboard.menu'),
+    permissionRequired: null,
+  },
+
+  config.isPlanEnabled && {
+    path: '/plan',
+    permissionRequired: permissions.planRead,
+    icon: <CreditCardOutlinedIcon />,
+    label: i18n('plan.menu'),
+  },
+
+  {
+    path: '/user',
+    label: i18n('user.menu'),
+    permissionRequired: permissions.userRead,
+    icon: <PersonIcon />,
+  },
+
+  {
+    path: '/audit-logs',
+    icon: <HistoryIcon />,
+    label: i18n('auditLog.menu'),
+    permissionRequired: permissions.auditLogRead,
+  },
+
+  {
+    path: '/settings',
+    icon: <SettingsIcon />,
+    label: i18n('settings.menu'),
+    permissionRequired: permissions.settingsEdit,
+  },
+
+  {
+    path: '/check-list',
+    permissionRequired: permissions.checkListRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.checkList.menu'),
+  },
+
+  {
+    path: '/cliente',
+    permissionRequired: permissions.clienteRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.cliente.menu'),
+  },
+
+  {
+    path: '/conta',
+    permissionRequired: permissions.contaRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.conta.menu'),
+  },
+
+  {
+    path: '/pedido',
+    permissionRequired: permissions.pedidoRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.pedido.menu'),
+  },
+
+  {
+    path: '/registro-diario',
+    permissionRequired: permissions.registroDiarioRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.registroDiario.menu'),
+  },
+
+  {
+    path: '/plano',
+    permissionRequired: permissions.planoRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.plano.menu'),
+  },
+
+  {
+    path: '/plano-periodo',
+    permissionRequired: permissions.planoPeriodoRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.planoPeriodo.menu'),
+  },
+
+  {
+    path: '/pais',
+    permissionRequired: permissions.paisRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.pais.menu'),
+  },
+
+  {
+    path: '/corretora',
+    permissionRequired: permissions.corretoraRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.corretora.menu'),
+  },
+
+  {
+    path: '/ordem',
+    permissionRequired: permissions.ordemRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.ordem.menu'),
+  },
+
+  {
+    path: '/robo',
+    permissionRequired: permissions.roboRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.robo.menu'),
+  },
+
+  {
+    path: '/parametros-robo',
+    permissionRequired: permissions.parametrosRoboRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.parametrosRobo.menu'),
+  },
+].filter(Boolean);

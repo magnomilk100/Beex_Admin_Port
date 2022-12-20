@@ -1,0 +1,59 @@
+Criar Backup e Restore para o MongoDB
+	Script de backup
+		setlocal enableextensions
+		set name=%DATE:/=_%
+		cd C:\Program Files\MongoDB\Tools\100\bin
+		mongodump -h localhost:27017 -d development -o C:/Users/Administrator/Desktop/mongodb_automatic_Backup/%name%
+
+		Arquivo criado em producao C:\Users\Administrator\Desktop\BeexPythonChecks\BEEX_backupMongoDB_Development.bat
+
+		Como criar backup com nodejs  and cronnode
+			https://www.youtube.com/watch?v=JlM81PN9OP4		
+
+	RESTORE
+		mongorestore --host localhost --port 27017 --db development ../backupAqui/development
+
+
+
+Criar Backend and Frontend como servico do windows
+	Producao
+		nssm.exe install BEEX_ADMIN_BACKEND C:\Users\Administrator\Desktop\ScaffoldHub_Beex_Admin\BEEX_BACKEND_node_port_477.bat
+		nssm.exe install BEEX_ADMIN_FRONTEND C:\Users\Administrator\Desktop\ScaffoldHub_Beex_Admin\BEEX_FRONTEND_node_port_3000.bat
+		net start BEEX_ADMIN_BACKEND
+		net start BEEX_ADMIN_FRONTEND
+
+	Localmente
+		nssm.exe install BEEX_ADMIN_BACKEND C:\Users\MagnodaSilvaLeite(t2\Documents\Magno_Personal\Beex\GitProjects\Beex\ScaffoldHub_Beex_Admin\BEEX_BACKEND_node_port_477.bat
+		nssm.exe install BEEX_ADMIN_FRONTEND C:\Users\MagnodaSilvaLeite(t2\Documents\Magno_Personal\Beex\GitProjects\Beex\ScaffoldHub_Beex_Admin\BEEX_FRONTEND_node_port_3000.bat
+		net start BEEX_ADMIN_BACKEND
+		net start BEEX_ADMIN_FRONTEND
+		
+		
+New Certificates Beex:
+	openssl genrsa -des3 -out private/beexCA.key 2048
+	openssl req -x509 -new -nodes -key private/beexCA.key -sha256 -days 1825 -out certs/beexCA.pem
+	openssl genrsa -out intermediate/private/beexAdminServer.prod.key 2048
+	openssl req -new -key intermediate/private/beexAdminServer.prod.key -out intermediate/csr/beexAdminServer.prod.csr
+	openssl x509 -req -in intermediate/csr/beexAdminServer.prod.csr -CA certs/beexCA.pem -CAkey private/beexCA.key -CAcreateserial -out intermediate/certs/beexAdminServer.prod.crt -days 1480 -sha256  -extfile vpsw2663.publiccloud.com.br.ext
+			
+			
+
+
+Fazendo a equivalencia do que tinhamos com o UM atual, com o novo scaffoldhub UM
+
+	URL da API Swagger UM
+	http://localhost:8080/documentation/index.html#
+
+	URL para conhecermos o tenant
+	"/api/tenant/6216332a9bad6e8d142cde7f/plano/6216a5d5e9ea650cf8f02a53"
+
+	Usar o 
+	POST
+	​/auth​/sign-in
+	para pegar o token
+
+	Token gerado
+	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMTYzMzJhOWJhZDZlOGQxNDJjZGU3ZCIsImlhdCI6MTY0NTY1NDM3MiwiZXhwIjoxNjQ2MjU5MTcyfQ.7SDlvEOQGiqdi5da1-rvkgIIRQy2hr1fpiMDDVdxk8k
+
+
+			

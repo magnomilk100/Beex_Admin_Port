@@ -1,0 +1,89 @@
+import React from 'react';
+import Spinner from 'src/view/shared/Spinner';
+import { i18n } from 'src/i18n';
+import TextViewItem from 'src/view/shared/view/TextViewItem';
+import UserViewItem from 'src/view/user/view/UserViewItem';
+import moment from 'moment';
+import ClienteViewItem from 'src/view/cliente/view/ClienteViewItem';
+
+function CheckListView(props) {
+  const renderView = () => {
+    const { record } = props;
+
+    return (
+      <div>
+        <TextViewItem
+          label={i18n(
+            'entities.checkList.fields.data',
+          )}
+          value={moment(record.data).format(
+            'YYYY-MM-DD HH:mm',
+          )}
+        />
+        <ClienteViewItem
+          label={i18n('entities.checkList.fields.cliente')}
+          value={record.cliente}
+        />
+
+        <TextViewItem
+          label={i18n('entities.checkList.fields.aceiteDeRisco')}
+          value={
+            record.aceiteDeRisco &&
+            i18n(
+              `entities.checkList.enumerators.aceiteDeRisco.${record.aceiteDeRisco}`,
+            )
+          }
+        />
+
+        <TextViewItem
+          label={i18n('entities.checkList.fields.emailBoasVindas')}
+          value={
+            record.emailBoasVindas &&
+            i18n(
+              `entities.checkList.enumerators.emailBoasVindas.${record.emailBoasVindas}`,
+            )
+          }
+        />
+
+        <TextViewItem
+          label={i18n('entities.checkList.fields.clienteRoundCube')}
+          value={
+            record.clienteRoundCube &&
+            i18n(
+              `entities.checkList.enumerators.clienteRoundCube.${record.clienteRoundCube}`,
+            )
+          }
+        />
+
+        <TextViewItem
+          label={i18n('entities.checkList.fields.suportePrimario')}
+          value={
+            record.suportePrimario &&
+            i18n(
+              `entities.checkList.enumerators.suportePrimario.${record.suportePrimario}`,
+            )
+          }
+        />
+        <UserViewItem
+          label={i18n('entities.checkList.fields.enviadoDe')}
+          value={record.enviadoDe}
+        />
+
+        <UserViewItem
+          label={i18n('entities.checkList.fields.processandoPor')}
+          value={record.processandoPor}
+        />         
+      </div>
+    );
+  };
+
+  const { record, loading } = props;
+
+  if (loading || !record) {
+    return <Spinner />;
+  }
+
+  return renderView();
+}
+
+export default CheckListView;

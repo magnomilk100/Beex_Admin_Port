@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/conta`,
+    require('./contaCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/conta/:id`,
+    require('./contaUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/conta/import`,
+    require('./contaImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/conta`,
+    require('./contaDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/conta/autocomplete`,
+    require('./contaAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/conta`,
+    require('./contaList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/conta/:id`,
+    require('./contaFind').default,
+  );
+};

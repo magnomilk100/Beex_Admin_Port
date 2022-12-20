@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/ordem`,
+    require('./ordemCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/ordem/:id`,
+    require('./ordemUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/ordem/import`,
+    require('./ordemImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/ordem`,
+    require('./ordemDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/ordem/autocomplete`,
+    require('./ordemAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/ordem`,
+    require('./ordemList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/ordem/:id`,
+    require('./ordemFind').default,
+  );
+};

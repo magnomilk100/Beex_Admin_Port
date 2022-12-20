@@ -1,0 +1,34 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/registro-diario`,
+    require('./registroDiarioCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/registro-diario/:id`,
+    require('./registroDiarioUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/registro-diario/import`,
+    require('./registroDiarioImport').default,
+  );
+  app.post(
+    `/tenant/:tenantId/registro-diario/manage-login`,
+    require('./registroDiarioManageLogin').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/registro-diario`,
+    require('./registroDiarioDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/registro-diario/autocomplete`,
+    require('./registroDiarioAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/registro-diario`,
+    require('./registroDiarioList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/registro-diario/:id`,
+    require('./registroDiarioFind').default,
+  );
+};

@@ -1,0 +1,215 @@
+import {
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  Grid,
+} from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import UndoIcon from '@material-ui/icons/Undo';
+import React, { useEffect, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { i18n } from 'src/i18n';
+import actions from 'src/modules/cliente/list/clienteListActions';
+import selectors from 'src/modules/cliente/list/clienteListSelectors';
+import yupFilterSchemas from 'src/modules/shared/yup/yupFilterSchemas';
+import FilterWrapper, {
+  FilterButtons,
+} from 'src/view/shared/styles/FilterWrapper';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import filterRenders from 'src/modules/shared/filter/filterRenders';
+import FilterPreview from 'src/view/shared/filter/FilterPreview';
+import FilterAccordion from 'src/view/shared/filter/FilterAccordion';
+import InputFormItem from 'src/view/shared/form/items/InputFormItem';
+import PaisAutocompleteFormItem from 'src/view/pais/autocomplete/PaisAutocompleteFormItem';
+
+const schema = yup.object().shape({
+  nome: yupFilterSchemas.string(
+    i18n('entities.cliente.fields.nome'),
+  ),
+  email: yupFilterSchemas.string(
+    i18n('entities.cliente.fields.email'),
+  ),
+  cpf: yupFilterSchemas.string(
+    i18n('entities.cliente.fields.cpf'),
+  ),
+  telefone: yupFilterSchemas.string(
+    i18n('entities.cliente.fields.telefone'),
+  ),
+  cidade: yupFilterSchemas.string(
+    i18n('entities.cliente.fields.cidade'),
+  ),
+  pais: yupFilterSchemas.relationToOne(
+    i18n('entities.cliente.fields.pais'),
+  ),
+});
+
+const emptyValues = {
+  nome: null,
+  email: null,
+  cpf: null,
+  telefone: null,
+  cidade: null,
+  pais: null,
+}
+
+const previewRenders = {
+  nome: {
+    label: i18n('entities.cliente.fields.nome'),
+    render: filterRenders.generic(),
+  },
+  email: {
+    label: i18n('entities.cliente.fields.email'),
+    render: filterRenders.generic(),
+  },
+  cpf: {
+    label: i18n('entities.cliente.fields.cpf'),
+    render: filterRenders.generic(),
+  },
+  telefone: {
+    label: i18n('entities.cliente.fields.telefone'),
+    render: filterRenders.generic(),
+  },
+  cidade: {
+    label: i18n('entities.cliente.fields.cidade'),
+    render: filterRenders.generic(),
+  },
+  pais: {
+      label: i18n('entities.cliente.fields.pais'),
+      render: filterRenders.relationToOne(),
+    },
+}
+
+function ClienteListFilter(props) {
+  const rawFilter = useSelector(selectors.selectRawFilter);
+  const dispatch = useDispatch();
+  const [expanded, setExpanded] = useState(false);
+
+  const [initialValues] = useState(() => {
+    return {
+      ...emptyValues,
+      ...rawFilter,
+    };
+  });
+
+  const form = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: initialValues,
+    mode: 'all',
+  });
+
+  useEffect(() => {
+    dispatch(actions.doFetch(schema.cast(initialValues), rawFilter));
+    // eslint-disable-next-line
+  }, [dispatch]);
+
+  const onSubmit = (values) => {
+    const rawValues = form.getValues();
+    dispatch(actions.doFetch(values, rawValues));
+    setExpanded(false);
+  };
+
+  const onReset = () => {
+    Object.keys(emptyValues).forEach((key) => {
+      form.setValue(key, emptyValues[key]);
+    });
+    dispatch(actions.doReset());
+    setExpanded(false);
+  };
+
+  const onRemove = (key) => {
+    form.setValue(key, emptyValues[key]);
+    return form.handleSubmit(onSubmit)();
+  };
+
+  return (
+    <FilterWrapper>
+      <FilterAccordion
+        expanded={expanded}
+        onChange={(event, isExpanded) =>
+          setExpanded(isExpanded)
+        }
+      >
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <FilterPreview
+            values={rawFilter}
+            renders={previewRenders}
+            expanded={expanded}
+            onRemove={onRemove}
+          />
+        </AccordionSummary>
+        <AccordionDetails>
+          <FormProvider {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <Grid container spacing={2}>
+                <Grid item lg={6} xs={12}>
+                  <InputFormItem
+                    name="nome"
+                    label={i18n('entities.cliente.fields.nome')}      
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <InputFormItem
+                    name="email"
+                    label={i18n('entities.cliente.fields.email')}      
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <InputFormItem
+                    name="cpf"
+                    label={i18n('entities.cliente.fields.cpf')}      
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <InputFormItem
+                    name="telefone"
+                    label={i18n('entities.cliente.fields.telefone')}      
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <InputFormItem
+                    name="cidade"
+                    label={i18n('entities.cliente.fields.cidade')}      
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <PaisAutocompleteFormItem  
+                    name="pais"
+                    label={i18n('entities.cliente.fields.pais')}        
+                  />
+                </Grid>
+              </Grid>
+
+              <FilterButtons>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  disabled={props.loading}
+                  startIcon={<SearchIcon />}
+                  size="small"
+                >
+                  {i18n('common.search')}
+                </Button>
+
+                <Button
+                  type="button"
+                  onClick={onReset}
+                  disabled={props.loading}
+                  startIcon={<UndoIcon />}
+                  size="small"
+                >
+                  {i18n('common.reset')}
+                </Button>
+              </FilterButtons>
+            </form>
+          </FormProvider>
+        </AccordionDetails>
+      </FilterAccordion>
+    </FilterWrapper>
+  );
+}
+
+export default ClienteListFilter;

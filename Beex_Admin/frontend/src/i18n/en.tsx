@@ -1,0 +1,1236 @@
+const en = {
+  common: {
+    or: 'or',
+    cancel: 'Cancel',
+    reset: 'Reset',
+    save: 'Save',
+    search: 'Search',
+    edit: 'Edit',
+    new: 'New',
+    export: 'Export to Excel',
+    noDataToExport: 'No data to export',
+    import: 'Import',
+    discard: 'Discard',
+    yes: 'Yes',
+    no: 'No',
+    pause: 'Pause',
+    areYouSure: 'Are you sure?',
+    view: 'View',
+    destroy: 'Delete',
+    mustSelectARow: 'Must select a row',
+    start: 'Start',
+    end: 'End',
+    select: 'Select',
+    continue: 'Continue',
+    filters: 'Filters',
+  },
+
+  app: {
+    title: 'Beex Admin',
+  },
+
+  api: {
+    menu: 'API',
+  },
+
+  entities: {
+    cliente: {
+        name: 'cliente',
+        label: 'Clientes',
+        menu: 'Clientes',
+        exporterFileName: 'cliente_export',
+        list: {
+          menu: 'Clientes',
+          title: 'Clientes',
+        },
+        create: {
+          success: 'Cliente successfully saved',
+        },
+        update: {
+          success: 'Cliente successfully saved',
+        },
+        destroy: {
+          success: 'Cliente successfully deleted',
+        },
+        destroyAll: {
+          success: 'Cliente(s) successfully deleted',
+        },
+        edit: {
+          title: 'Edit Cliente',
+        },
+        fields: {
+          id: 'Id',
+          'nome': 'Nome',
+          'email': 'Email',
+          'cpf': 'CPF',
+          'telefone': 'Telefone',
+          'cidade': 'Cidade',
+          'pais': 'País',
+          'observacoes': 'Observações',
+          createdAt: 'Created at',
+          updatedAt: 'Updated at',
+          createdAtRange: 'Created at',
+        },
+        enumerators: {
+
+        },
+        placeholders: {
+
+        },
+        hints: {
+          'nome': 'Nome completo do cliente.',
+          'cpf': 'Coloque o CPF com todos os pontos e hifens como no documento. Ex: 185.659.233-98',
+          'telefone': 'Celular do cliente, (+00 o qual é o código do país) e restante do número.',
+          'cidade': 'Cidade onde vive o cliente atualmente.',
+          'observacoes': 'Adicione qualquer informação importante do cliente.',
+        },
+        new: {
+          title: 'New Cliente',
+        },
+        view: {
+          title: 'View Cliente',
+        },
+        importer: {
+          title: 'Import Clientes',
+          fileName: 'cliente_import_template',
+          hint:
+            'Files/Images columns must be the URLs of the files separated by space.',
+        },
+      },
+
+    pais: {
+        name: 'pais',
+        label: 'Pais',
+        menu: 'Pais',
+        exporterFileName: 'pais_export',
+        list: {
+          menu: 'Pais',
+          title: 'Pais',
+        },
+        create: {
+          success: 'Pais successfully saved',
+        },
+        update: {
+          success: 'Pais successfully saved',
+        },
+        destroy: {
+          success: 'Pais successfully deleted',
+        },
+        destroyAll: {
+          success: 'Pais(s) successfully deleted',
+        },
+        edit: {
+          title: 'Edit Pais',
+        },
+        fields: {
+          id: 'Id',
+          'nome': 'Nome',
+          createdAt: 'Created at',
+          updatedAt: 'Updated at',
+          createdAtRange: 'Created at',
+        },
+        enumerators: {
+
+        },
+        placeholders: {
+
+        },
+        hints: {
+
+        },
+        new: {
+          title: 'New Pais',
+        },
+        view: {
+          title: 'View Pais',
+        },
+        importer: {
+          title: 'Import Pais',
+          fileName: 'pais_import_template',
+          hint:
+            'Files/Images columns must be the URLs of the files separated by space.',
+        },
+      },
+
+    corretora: {
+        name: 'corretora',
+        label: 'Corretoras',
+        menu: 'Corretoras',
+        exporterFileName: 'corretora_export',
+        list: {
+          menu: 'Corretoras',
+          title: 'Corretoras',
+        },
+        create: {
+          success: 'Corretora successfully saved',
+        },
+        update: {
+          success: 'Corretora successfully saved',
+        },
+        destroy: {
+          success: 'Corretora successfully deleted',
+        },
+        destroyAll: {
+          success: 'Corretora(s) successfully deleted',
+        },
+        edit: {
+          title: 'Edit Corretora',
+        },
+        fields: {
+          id: 'Id',
+          'nome': 'Nome',
+          createdAt: 'Created at',
+          updatedAt: 'Updated at',
+          createdAtRange: 'Created at',
+        },
+        enumerators: {
+
+        },
+        placeholders: {
+
+        },
+        hints: {
+
+        },
+        new: {
+          title: 'New Corretora',
+        },
+        view: {
+          title: 'View Corretora',
+        },
+        importer: {
+          title: 'Import Corretoras',
+          fileName: 'corretora_import_template',
+          hint:
+            'Files/Images columns must be the URLs of the files separated by space.',
+        },
+      },
+
+    conta: {
+        name: 'conta',
+        label: 'Contas',
+        menu: 'Contas',
+        exporterFileName: 'conta_export',
+        list: {
+          menu: 'Contas',
+          title: 'Contas',
+        },
+        create: {
+          success: 'Conta successfully saved',
+        },
+        update: {
+          success: 'Conta successfully saved',
+        },
+        destroy: {
+          success: 'Conta successfully deleted',
+        },
+        destroyAll: {
+          success: 'Conta(s) successfully deleted',
+        },
+        edit: {
+          title: 'Edit Conta',
+        },
+        fields: {
+          id: 'Id',
+          'cliente': 'Cliente',
+          'corretora': 'Corretora',
+          'idMetatraderCorretora': 'IdMetatraderCorretora',
+          createdAt: 'Created at',
+          updatedAt: 'Updated at',
+          createdAtRange: 'Created at',
+        },
+        enumerators: {
+
+        },
+        placeholders: {
+
+        },
+        hints: {
+          'idMetatraderCorretora': 'Numero que aparece no metatrader do cliente, numero fornecido pela corretora para o cliente.',
+        },
+        new: {
+          title: 'New Conta',
+        },
+        view: {
+          title: 'View Conta',
+        },
+        importer: {
+          title: 'Import Contas',
+          fileName: 'conta_import_template',
+          hint:
+            'Files/Images columns must be the URLs of the files separated by space.',
+        },
+      },
+
+    plano: {
+        name: 'plano',
+        label: 'Planos',
+        menu: 'Planos',
+        exporterFileName: 'plano_export',
+        list: {
+          menu: 'Planos',
+          title: 'Planos',
+        },
+        create: {
+          success: 'Plano successfully saved',
+        },
+        update: {
+          success: 'Plano successfully saved',
+        },
+        destroy: {
+          success: 'Plano successfully deleted',
+        },
+        destroyAll: {
+          success: 'Plano(s) successfully deleted',
+        },
+        edit: {
+          title: 'Edit Plano',
+        },
+        fields: {
+          id: 'Id',
+          'nome': 'Nome',
+          'qtdDeContratosRange': 'QtdDeContratos',
+          'qtdDeContratos': 'QtdDeContratos',
+          createdAt: 'Created at',
+          updatedAt: 'Updated at',
+          createdAtRange: 'Created at',
+        },
+        enumerators: {
+
+        },
+        placeholders: {
+
+        },
+        hints: {
+
+        },
+        new: {
+          title: 'New Plano',
+        },
+        view: {
+          title: 'View Plano',
+        },
+        importer: {
+          title: 'Import Planos',
+          fileName: 'plano_import_template',
+          hint:
+            'Files/Images columns must be the URLs of the files separated by space.',
+        },
+      },
+
+    ordem: {
+        name: 'ordem',
+        label: 'Ordens',
+        menu: 'Ordens',
+        exporterFileName: 'ordem_export',
+        list: {
+          menu: 'Ordens',
+          title: 'Ordens',
+        },
+        create: {
+          success: 'Ordem successfully saved',
+        },
+        update: {
+          success: 'Ordem successfully saved',
+        },
+        destroy: {
+          success: 'Ordem successfully deleted',
+        },
+        destroyAll: {
+          success: 'Ordem(s) successfully deleted',
+        },
+        edit: {
+          title: 'Edit Ordem',
+        },
+        fields: {
+          id: 'Id',
+          'conta': 'Conta',
+          'tipo': 'Tipo',
+          'direcao': 'Direcao',
+          'precoEntradaRange': 'Preco de Entrada',
+          'precoEntrada': 'Preco de Entrada',
+          'robo': 'Robo',
+          'versao': 'Versão',
+          'dataHoraRange': 'Data e Hora',
+          'dataHora': 'Data e Hora',
+          createdAt: 'Created at',
+          updatedAt: 'Updated at',
+          createdAtRange: 'Created at',
+        },
+        enumerators: {
+          'tipo': {
+            'colocar': 'Colocar',
+            'retirar': 'Retirar',
+          },
+          'direcao': {
+            'compra': 'Compra',
+            'venda': 'Venda',
+          },
+        },
+        placeholders: {
+
+        },
+        hints: {
+          'tipo': 'Colocar uma ordem. Ou retirar uma ordem ou posição existente.',
+          'direcao': 'Ordem de compra ou de venda.',
+          'precoEntrada': 'Preço para colocar a ordem de compra ou venda.',
+          'versao': 'Versão do robô. Exemplo:  2.3 ou 2.4 ou 3.0 ou 3.2',
+          'dataHora': 'Data e hora para colocação da ordem. Primeiro possível horário depois desta data/hora.',
+        },
+        new: {
+          title: 'New Ordem',
+        },
+        view: {
+          title: 'View Ordem',
+        },
+        importer: {
+          title: 'Import Ordens',
+          fileName: 'ordem_import_template',
+          hint:
+            'Files/Images columns must be the URLs of the files separated by space.',
+        },
+      },
+
+    robo: {
+        name: 'robo',
+        label: 'Robos',
+        menu: 'Robos',
+        exporterFileName: 'robo_export',
+        list: {
+          menu: 'Robos',
+          title: 'Robos',
+        },
+        create: {
+          success: 'Robô successfully saved',
+        },
+        update: {
+          success: 'Robô successfully saved',
+        },
+        destroy: {
+          success: 'Robô successfully deleted',
+        },
+        destroyAll: {
+          success: 'Robô(s) successfully deleted',
+        },
+        edit: {
+          title: 'Edit Robô',
+        },
+        fields: {
+          id: 'Id',
+          'nome': 'Nome',
+          'ativo': 'Ativo',
+          createdAt: 'Created at',
+          updatedAt: 'Updated at',
+          createdAtRange: 'Created at',
+        },
+        enumerators: {
+          'ativo': {
+            'dolar': 'Dolar',
+            'indice': 'Indice',
+          },
+        },
+        placeholders: {
+
+        },
+        hints: {
+          'ativo': 'Dólar ou Índice.',
+        },
+        new: {
+          title: 'New Robô',
+        },
+        view: {
+          title: 'View Robô',
+        },
+        importer: {
+          title: 'Import Robos',
+          fileName: 'robo_import_template',
+          hint:
+            'Files/Images columns must be the URLs of the files separated by space.',
+        },
+      },
+
+    pedido: {
+        name: 'pedido',
+        label: 'Pedidos',
+        menu: 'Pedidos',
+        exporterFileName: 'pedido_export',
+        list: {
+          menu: 'Pedidos',
+          title: 'Pedidos',
+        },
+        create: {
+          success: 'Pedido successfully saved',
+        },
+        update: {
+          success: 'Pedido successfully saved',
+        },
+        destroy: {
+          success: 'Pedido successfully deleted',
+        },
+        destroyAll: {
+          success: 'Pedido(s) successfully deleted',
+        },
+        edit: {
+          title: 'Edit Pedido',
+        },
+        fields: {
+          id: 'Id',
+          'cliente': 'Cliente',
+          'robo': 'Robo',
+          'plano': 'Plano',
+          'indicadoPor': 'Indicado Por',
+          'dataInicioRange': 'Data de Inicio',
+          'dataInicio': 'Data de Inicio',
+          'dataTerminoRange': 'Data de Término',
+          'dataTermino': 'Data de Término',
+          'dataEmailCobrancaRange': 'Email Cobrança',
+          'dataEmailCobranca': 'Email Cobrança',
+          'valorPagoRange': 'Valor Pago',
+          'valorPago': 'Valor Pago',
+          'plataformaDePagamento': 'Plataforma De Pagamento',
+          'duracaoPlano': 'Tipo de Pagamento',
+          createdAt: 'Created at',
+          updatedAt: 'Updated at',
+          createdAtRange: 'Created at',
+        },
+        enumerators: {
+          'plataformaDePagamento': {
+            'Kiwify': 'Kiwify',
+            'PIX': 'PIX',
+            'Transferencia': 'Transferencia',
+            'Permuta': 'Permuta',
+            'Outro': 'Outro',
+          },
+          'duracaoPlano': {
+            'mensal': 'Mensal',
+            'trimestral': 'Trimestral',
+            'semestral': 'Semestral',
+            'anual': 'Anual',
+          },
+        },
+        placeholders: {
+
+        },
+        hints: {
+          'robo': 'Nome do robo',
+          'indicadoPor': 'Profissional Beex que indicou cliente.',
+          'dataInicio': 'Ínicio do plano.',
+          'dataTermino': 'Término do plano.',
+          'plataformaDePagamento': 'Plataforma usada para pagamento.',
+        },
+        new: {
+          title: 'New Pedido',
+        },
+        view: {
+          title: 'View Pedido',
+        },
+        importer: {
+          title: 'Import Pedidos',
+          fileName: 'pedido_import_template',
+          hint:
+            'Files/Images columns must be the URLs of the files separated by space.',
+        },
+      },
+
+    registroDiario: {
+        name: 'registroDiario',
+        label: 'RegistroDiarios',
+        menu: 'RegistroDiarios',
+        exporterFileName: 'registroDiario_export',
+        list: {
+          menu: 'RegistroDiarios',
+          title: 'RegistroDiarios',
+        },
+        create: {
+          success: 'Registro Diário successfully saved',
+        },
+        update: {
+          success: 'Registro Diário successfully saved',
+        },
+        destroy: {
+          success: 'Registro Diário successfully deleted',
+        },
+        destroyAll: {
+          success: 'Registro Diário(s) successfully deleted',
+        },
+        edit: {
+          title: 'Edit Registro Diário',
+        },
+        fields: {
+          id: 'Id',
+          'cliente': 'Cliente',
+          'robo': 'Robo',
+          'versao': 'Versão',
+          'numeroMagico': 'Numero Mágico',
+          'qtdContratosRange': 'Quantidade de contratos',
+          'qtdContratos': 'Quantidade de contratos',
+          'dataRange': 'Data',
+          'data': 'Data',
+          'numeroChart': 'Numero do Gráfico',
+          'conta': 'Conta',
+          createdAt: 'Created at',
+          updatedAt: 'Updated at',
+          createdAtRange: 'Created at',
+        },
+        enumerators: {
+
+        },
+        placeholders: {
+
+        },
+        hints: {
+          'versao': 'Versão do robô. Exemplo:  2.3 ou 2.4 ou 3.0 ou 3.2',
+          'numeroMagico': 'Magic number.',
+          'numeroChart': 'Chart id',
+        },
+        new: {
+          title: 'New Registro Diário',
+        },
+        view: {
+          title: 'View Registro Diário',
+        },
+        importer: {
+          title: 'Import RegistroDiarios',
+          fileName: 'registroDiario_import_template',
+          hint:
+            'Files/Images columns must be the URLs of the files separated by space.',
+        },
+      },
+
+    checkList: {
+        name: 'checkList',
+        label: 'CheckLists',
+        menu: 'CheckLists',
+        exporterFileName: 'checkList_export',
+        list: {
+          menu: 'CheckLists',
+          title: 'CheckLists',
+        },
+        create: {
+          success: 'Check List successfully saved',
+        },
+        update: {
+          success: 'Check List successfully saved',
+        },
+        destroy: {
+          success: 'Check List successfully deleted',
+        },
+        destroyAll: {
+          success: 'Check List(s) successfully deleted',
+        },
+        edit: {
+          title: 'Edit Check List',
+        },
+        fields: {
+          id: 'Id',
+          'dataRange': 'Data',
+          'data': 'Data',
+          'cliente': 'Cliente',
+          'aceiteDeRisco': 'Aceite de Risco Assinado',
+          'emailBoasVindas': 'Email de Boas Vindas',
+          'clienteRoundCube': 'Cliente em Round Cube (Email)',
+          'suportePrimario': 'Suporte Primario',
+          'enviadoDe': 'Enviado De',
+          'processandoPor': 'Processando Por',
+          'observacao': 'Observação',
+          createdAt: 'Created at',
+          updatedAt: 'Updated at',
+          createdAtRange: 'Created at',
+        },
+        enumerators: {
+          'aceiteDeRisco': {
+            'pendente': 'Pendente',
+            'finalizado': 'Finalizado',
+          },
+          'emailBoasVindas': {
+            'pendente': 'Pendente',
+            'finalizado': 'Finalizado',
+          },
+          'clienteRoundCube': {
+            'pendente': 'Pendente',
+            'finalizado': 'Finalizado',
+          },
+          'suportePrimario': {
+            'pendente': 'Pendente',
+            'finalizado': 'Finalizado',
+          },
+        },
+        placeholders: {
+
+        },
+        hints: {
+          'suportePrimario': 'a) Auxiliar o cliente no cadastro inicial.   b) Indicar o assessor parceiro.   c) Ajudá-lo a preencher o “perfil de investidor”   d) Contratação de produtos necessários para rodar o robô. -	RLP -	Alavancagem intraday - Conta Margem - Limite facil - Plataforma MT5 Hedge - Génial Cloud   e) Instruí-lo para o depósito na corretora',
+          'enviadoDe': 'Quem iniciou ou estava processando este cliente?',
+          'processandoPor': 'Quem pegou este cliente para continuar o processo?',
+          'observacao': 'Coloque aqui qualquer informação importante a este processo de interação com o cliente, pendencia e etc.',
+        },
+        new: {
+          title: 'New Check List',
+        },
+        view: {
+          title: 'View Check List',
+        },
+        importer: {
+          title: 'Import CheckLists',
+          fileName: 'checkList_import_template',
+          hint:
+            'Files/Images columns must be the URLs of the files separated by space.',
+        },
+      },
+
+    planoPeriodo: {
+        name: 'planoPeriodo',
+        label: 'PlanoPeriodos',
+        menu: 'PlanoPeriodos',
+        exporterFileName: 'planoPeriodo_export',
+        list: {
+          menu: 'PlanoPeriodos',
+          title: 'PlanoPeriodos',
+        },
+        create: {
+          success: 'Plano Periodo successfully saved',
+        },
+        update: {
+          success: 'Plano Periodo successfully saved',
+        },
+        destroy: {
+          success: 'Plano Periodo successfully deleted',
+        },
+        destroyAll: {
+          success: 'Plano Periodo(s) successfully deleted',
+        },
+        edit: {
+          title: 'Edit Plano Periodo',
+        },
+        fields: {
+          id: 'Id',
+          'plano': 'Plano',
+          'periodicidade': 'Periodicidade',
+          'qrCode': 'QR Code',
+          'valorRange': 'Valor',
+          'valor': 'Valor',
+          createdAt: 'Created at',
+          updatedAt: 'Updated at',
+          createdAtRange: 'Created at',
+        },
+        enumerators: {
+          'periodicidade': {
+            'mensal': 'Mensal',
+            'trimestral': 'Trimestral',
+            'semestral': 'Semestral',
+            'anual': 'Anual',
+          },
+        },
+        placeholders: {
+
+        },
+        hints: {
+          'valor': 'Valor a ser pago no periodo.',
+        },
+        new: {
+          title: 'New Plano Periodo',
+        },
+        view: {
+          title: 'View Plano Periodo',
+        },
+        importer: {
+          title: 'Import PlanoPeriodos',
+          fileName: 'planoPeriodo_import_template',
+          hint:
+            'Files/Images columns must be the URLs of the files separated by space.',
+        },
+      },
+
+    parametrosRobo: {
+        name: 'parametrosRobo',
+        label: 'ParametrosRobos',
+        menu: 'ParametrosRobos',
+        exporterFileName: 'parametrosRobo_export',
+        list: {
+          menu: 'ParametrosRobos',
+          title: 'ParametrosRobos',
+        },
+        create: {
+          success: 'Parametros Robo successfully saved',
+        },
+        update: {
+          success: 'Parametros Robo successfully saved',
+        },
+        destroy: {
+          success: 'Parametros Robo successfully deleted',
+        },
+        destroyAll: {
+          success: 'Parametros Robo(s) successfully deleted',
+        },
+        edit: {
+          title: 'Edit Parametros Robo',
+        },
+        fields: {
+          id: 'Id',
+          'dataRange': 'Data',
+          'data': 'Data',
+          'robo': 'Robo',
+          'versao': 'Versao',
+          'configuracao': 'Configuracao',
+          'observacao': 'Observacao',
+          'parametros': 'Parametros',
+          createdAt: 'Created at',
+          updatedAt: 'Updated at',
+          createdAtRange: 'Created at',
+        },
+        enumerators: {
+          'configuracao': {
+            'A': 'A',
+            'B': 'B',
+            'C': 'C',
+            'D': 'D',
+            'E': 'E',
+            'F': 'F',
+            'G': 'G',
+          },
+        },
+        placeholders: {
+
+        },
+        hints: {
+          'data': 'Data de criação',
+          'robo': 'Nome do robo',
+          'versao': 'Versão do robô.',
+          'configuracao': 'Set de configuração do robô.',
+          'observacao': 'Coloque aqui qualquer informação importante.',
+          'parametros': 'Parâmetros do robô em JSON format. Para nenhuma configuração coloque somente vazio JSOM, assim {}',
+        },
+        new: {
+          title: 'New Parametros Robo',
+        },
+        view: {
+          title: 'View Parametros Robo',
+        },
+        importer: {
+          title: 'Import ParametrosRobos',
+          fileName: 'parametrosRobo_import_template',
+          hint:
+            'Files/Images columns must be the URLs of the files separated by space.',
+        },
+      },
+  },
+
+  auth: {
+    tenants: 'Workspaces',
+    profile: {
+      title: 'Profile',
+      success: 'Profile successfully updated',
+    },
+    createAnAccount: 'Create an account',
+    rememberMe: 'Remember me',
+    forgotPassword: 'Forgot password',
+    signin: 'Sign in',
+    signup: 'Sign up',
+    signout: 'Sign out',
+    alreadyHaveAnAccount:
+      'Already have an account? Sign in.',
+    social: {
+      errors: {
+        'auth-invalid-provider':
+          'This email is already registered to another provider.',
+        'auth-no-email': `The email associated with this account is private or inexistent.`,
+      },
+    },
+    signinWithAnotherAccount:
+      'Sign in with another account',
+    emailUnverified: {
+      message: `Please confirm your email at <strong>{0}</strong> to continue.`,
+      submit: `Resend email verification`,
+    },
+    emptyPermissions: {
+      message: `You have no permissions yet. Wait for the admin to grant you privileges.`,
+    },
+    passwordResetEmail: {
+      message: 'Send password reset email',
+      error: `Email not recognized`,
+    },
+    passwordReset: {
+      message: 'Reset password',
+    },
+    passwordChange: {
+      title: 'Change Password',
+      success: 'Password successfully changed',
+      mustMatch: 'Passwords must match',
+    },
+    emailAddressVerificationEmail: {
+      error: `Email not recognized`,
+    },
+    verificationEmailSuccess: `Verification email successfully sent`,
+    passwordResetEmailSuccess: `Password reset email successfully sent`,
+    passwordResetSuccess: `Password successfully changed`,
+    verifyEmail: {
+      success: 'Email successfully verified.',
+      message:
+        'Just a moment, your email is being verified...',
+    },
+  },
+
+  roles: {
+    admin: {
+      label: 'Admin',
+      description: 'Full access to all resources',
+    },
+    custom: {
+      label: 'Custom Role',
+      description: 'Custom role access',
+    },
+  },
+
+  user: {
+    fields: {
+      id: 'Id',
+      avatars: 'Avatar',
+      email: 'Email',
+      emails: 'Email(s)',
+      fullName: 'Name',
+      firstName: 'First Name',
+      lastName: 'Last Name',
+      status: 'Status',
+      phoneNumber: 'Phone Number',
+      role: 'Role',
+      createdAt: 'Created at',
+      updatedAt: 'Updated at',
+      roleUser: 'Role/User',
+      roles: 'Roles',
+      createdAtRange: 'Created at',
+      password: 'Password',
+      oldPassword: 'Old Password',
+      newPassword: 'New Password',
+      newPasswordConfirmation: 'New Password Confirmation',
+      rememberMe: 'Remember me',
+    },
+    status: {
+      active: 'Active',
+      invited: 'Invited',
+      'empty-permissions': 'Waiting for Permissions',
+    },
+    invite: 'Invite',
+    validations: {
+      // eslint-disable-next-line
+      email: 'Email ${value} is invalid',
+    },
+    title: 'Users',
+    menu: 'Users',
+    doAddSuccess: 'User(s) successfully saved',
+    doUpdateSuccess: 'User successfully saved',
+    exporterFileName: 'users_export',
+    doDestroySuccess: 'User successfully deleted',
+    doDestroyAllSelectedSuccess:
+      'Users successfully deleted',
+    edit: {
+      title: 'Edit User',
+    },
+    new: {
+      title: 'Invite User(s)',
+      titleModal: 'Invite User',
+      emailsHint:
+        'Separate multiple email addresses using the comma character.',
+    },
+    view: {
+      title: 'View User',
+      activity: 'Activity',
+    },
+    importer: {
+      title: 'Import Users',
+      fileName: 'users_import_template',
+      hint:
+        'Files/Images columns must be the URLs of the files separated by space. Relationships must be the ID of the referenced records separated by space. Roles must be the role ids separated by space.',
+    },
+    errors: {
+      userAlreadyExists:
+        'User with this email already exists',
+      userNotFound: 'User not found',
+      revokingOwnPermission: `You can't revoke your own admin permission`,
+    },
+  },
+
+  tenant: {
+    name: 'tenant',
+    label: 'Workspaces',
+    menu: 'Workspaces',
+    list: {
+      menu: 'Workspaces',
+      title: 'Workspaces',
+    },
+    create: {
+      button: 'Create Workspace',
+      success: 'Workspace successfully saved',
+    },
+    update: {
+      success: 'Workspace successfully saved',
+    },
+    destroy: {
+      success: 'Workspace successfully deleted',
+    },
+    destroyAll: {
+      success: 'Workspace(s) successfully deleted',
+    },
+    edit: {
+      title: 'Edit Workspace',
+    },
+    fields: {
+      id: 'Id',
+      name: 'Name',
+      url: 'URL',
+      tenantName: 'Workspace Name',
+      tenantId: 'Workspace',
+      tenantUrl: 'Workspace URL',
+      plan: 'Plan',
+    },
+    enumerators: {},
+    new: {
+      title: 'New Workspace',
+    },
+    invitation: {
+      view: 'View Invitations',
+      invited: 'Invited',
+      accept: 'Accept Invitation',
+      decline: 'Decline Invitation',
+      declined: 'Invitation successfully declined',
+      acceptWrongEmail: 'Accept Invitation With This Email',
+    },
+    select: 'Select Workspace',
+    validation: {
+      url:
+        'Your workspace URL can only contain lowercase letters, numbers and dashes (and must start with a letter or number).',
+    },
+  },
+
+  plan: {
+    menu: 'Plans',
+    title: 'Plans',
+
+    free: {
+      label: 'Free',
+      price: '$0',
+    },
+    growth: {
+      label: 'Growth',
+      price: '$10',
+    },
+    enterprise: {
+      label: 'Enterprise',
+      price: '$50',
+    },
+
+    pricingPeriod: '/month',
+    current: 'Current Plan',
+    subscribe: 'Subscribe',
+    manage: 'Manage Subscription',
+    cancelAtPeriodEnd:
+      'This plan will be canceled at the end of the period.',
+    somethingWrong:
+      'There is something wrong with your subscription. Please go to manage subscription for more details.',
+    notPlanUser: `You are not the manager of this subscription.`,
+  },
+
+  auditLog: {
+    menu: 'Audit Logs',
+    title: 'Audit Logs',
+    exporterFileName: 'audit_log_export',
+    entityNamesHint:
+      'Separate multiple entities using the comma character.',
+    fields: {
+      id: 'Id',
+      timestampRange: 'Period',
+      entityName: 'Entity',
+      entityNames: 'Entities',
+      entityId: 'Entity ID',
+      action: 'Action',
+      values: 'Values',
+      timestamp: 'Date',
+      createdByEmail: 'User Email',
+    },
+  },
+  settings: {
+    title: 'Settings',
+    menu: 'Settings',
+    save: {
+      success:
+        'Settings successfully saved. The page will reload in {0} seconds for changes to take effect.',
+    },
+    fields: {
+      primary: 'Primary Color',
+      secondary: 'Secondary Color',
+      logos: 'Logo',
+      backgroundImages: 'Background Images',
+      shade: 'Shade',
+    },
+  },
+  dashboard: {
+    menu: 'Dashboard',
+    message: `This page uses fake data for demonstration purposes only. You can edit it at frontend/view/dashboard/DashboardPage.ts.`,
+    charts: {
+      day: 'Day',
+      red: 'Red',
+      green: 'Green',
+      yellow: 'Yellow',
+      grey: 'Grey',
+      blue: 'Blue',
+      orange: 'Orange',
+      months: {
+        1: 'January',
+        2: 'February',
+        3: 'March',
+        4: 'April',
+        5: 'May',
+        6: 'June',
+        7: 'July',
+      },
+      eating: 'Eating',
+      drinking: 'Drinking',
+      sleeping: 'Sleeping',
+      designing: 'Designing',
+      coding: 'Coding',
+      cycling: 'Cycling',
+      running: 'Running',
+      customer: 'Customer',
+    },
+  },
+  errors: {
+    backToHome: 'Back to home',
+    403: `Sorry, you don't have access to this page`,
+    404: 'Sorry, the page you visited does not exist',
+    500: 'Sorry, the server is reporting an error',
+    429: 'Too many requests. Please try again later.',
+    forbidden: {
+      message: 'Forbidden',
+    },
+    validation: {
+      message: 'An error occurred',
+    },
+    defaultErrorMessage: 'Ops, an error occurred',
+  },
+
+  preview: {
+    error:
+      'Sorry, this operation is not allowed in preview mode.',
+  },
+  
+  // See https://github.com/jquense/yup#using-a-custom-locale-dictionary
+  /* eslint-disable */
+  validation: {
+    mixed: {
+      default: '${path} is invalid',
+      required: '${path} is required',
+      oneOf:
+        '${path} must be one of the following values: ${values}',
+      notOneOf:
+        '${path} must not be one of the following values: ${values}',
+      notType: ({ path, type, value, originalValue }) => {
+        return `${path} must be a ${type}`;
+      },
+    },
+    string: {
+      length:
+        '${path} must be exactly ${length} characters',
+      min: '${path} must be at least ${min} characters',
+      max: '${path} must be at most ${max} characters',
+      matches:
+        '${path} must match the following: "${regex}"',
+      email: '${path} must be a valid email',
+      url: '${path} must be a valid URL',
+      trim: '${path} must be a trimmed string',
+      lowercase: '${path} must be a lowercase string',
+      uppercase: '${path} must be a upper case string',
+      selected: '${path} must be selected',
+    },
+    number: {
+      min:
+        '${path} must be greater than or equal to ${min}',
+      max: '${path} must be less than or equal to ${max}',
+      lessThan: '${path} must be less than ${less}',
+      moreThan: '${path} must be greater than ${more}',
+      notEqual: '${path} must be not equal to ${notEqual}',
+      positive: '${path} must be a positive number',
+      negative: '${path} must be a negative number',
+      integer: '${path} must be an integer',
+    },
+    date: {
+      min: '${path} field must be later than ${min}',
+      max: '${path} field must be at earlier than ${max}',
+    },
+    boolean: {},
+    object: {
+      noUnknown:
+        '${path} field cannot have keys not specified in the object shape',
+    },
+    array: {
+      min: ({ min, path }) =>
+        min === 1
+          ? `${path} is required`
+          : `${path} field must have at least ${min} items`,
+      max:
+        '${path} field must have less than or equal to ${max} items',
+    },
+  },
+  /* eslint-disable */
+  fileUploader: {
+    upload: 'Upload',
+    image: 'You must upload an image',
+    size: 'File is too big. Max allowed size is {0}',
+    formats: `Invalid format. Must be one of: {0}.`,
+  },
+  importer: {
+    line: 'Line',
+    status: 'Status',
+    pending: 'Pending',
+    imported: 'Imported',
+    error: 'Error',
+    total: `{0} imported, {1} pending and {2} with error`,
+    importedMessage: `Processed {0} of {1}.`,
+    noNavigateAwayMessage:
+      'Do not navigate away from this page or import will be stopped.',
+    completed: {
+      success:
+        'Import completed. All rows were successfully imported.',
+      someErrors:
+        'Processing completed, but some rows were unable to be imported.',
+      allErrors: 'Import failed. There are no valid rows.',
+    },
+    form: {
+      downloadTemplate: 'Download the template',
+      hint:
+        'Click or drag the file to this area to continue',
+    },
+    list: {
+      discardConfirm:
+        'Are you sure? Non-imported data will be lost.',
+    },
+    errors: {
+      invalidFileEmpty: 'The file is empty',
+      invalidFileExcel:
+        'Only excel (.xlsx) files are allowed',
+      invalidFileUpload:
+        'Invalid file. Make sure you are using the last version of the template.',
+      importHashRequired: 'Import hash is required',
+      importHashExistent: 'Data has already been imported',
+    },
+  },
+
+  autocomplete: {
+    loading: 'Loading...',
+    noOptions: 'No data found',
+  },
+
+  imagesViewer: {
+    noImage: 'No image',
+  },
+
+  table: {
+    noData: 'No records found',
+    loading: 'Loading...',
+  },
+
+  pagination: {
+    labelDisplayedRows: '{0}-{1} of {2}',
+    labelRowsPerPage: 'Per page:',
+  },
+};
+
+export default en;

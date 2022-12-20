@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/cliente`,
+    require('./clienteCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/cliente/:id`,
+    require('./clienteUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/cliente/import`,
+    require('./clienteImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/cliente`,
+    require('./clienteDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/cliente/autocomplete`,
+    require('./clienteAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/cliente`,
+    require('./clienteList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/cliente/:id`,
+    require('./clienteFind').default,
+  );
+};

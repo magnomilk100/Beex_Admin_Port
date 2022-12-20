@@ -1,0 +1,183 @@
+import {
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  Grid,
+} from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import UndoIcon from '@material-ui/icons/Undo';
+import React, { useEffect, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { i18n } from 'src/i18n';
+import actions from 'src/modules/planoPeriodo/list/planoPeriodoListActions';
+import selectors from 'src/modules/planoPeriodo/list/planoPeriodoListSelectors';
+import yupFilterSchemas from 'src/modules/shared/yup/yupFilterSchemas';
+import FilterWrapper, {
+  FilterButtons,
+} from 'src/view/shared/styles/FilterWrapper';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import filterRenders from 'src/modules/shared/filter/filterRenders';
+import FilterPreview from 'src/view/shared/filter/FilterPreview';
+import FilterAccordion from 'src/view/shared/filter/FilterAccordion';
+import InputRangeFormItem from 'src/view/shared/form/items/InputRangeFormItem';
+import SelectFormItem from 'src/view/shared/form/items/SelectFormItem';
+import planoPeriodoEnumerators from 'src/modules/planoPeriodo/planoPeriodoEnumerators';
+import PlanoAutocompleteFormItem from 'src/view/plano/autocomplete/PlanoAutocompleteFormItem';
+
+const schema = yup.object().shape({
+  plano: yupFilterSchemas.relationToOne(
+    i18n('entities.planoPeriodo.fields.plano'),
+  ),
+  periodicidade: yupFilterSchemas.enumerator(
+    i18n('entities.planoPeriodo.fields.periodicidade'),
+  ),
+  valorRange: yupFilterSchemas.decimalRange(
+    i18n('entities.planoPeriodo.fields.valorRange'),
+  ),
+});
+
+const emptyValues = {
+  plano: null,
+  periodicidade: null,
+  valorRange: [],
+}
+
+const previewRenders = {
+  plano: {
+      label: i18n('entities.planoPeriodo.fields.plano'),
+      render: filterRenders.relationToOne(),
+    },
+  periodicidade: {
+    label: i18n('entities.planoPeriodo.fields.periodicidade'),
+    render: filterRenders.enumerator('entities.planoPeriodo.enumerators.periodicidade',),
+  },
+  valorRange: {
+    label: i18n('entities.planoPeriodo.fields.valorRange'),
+    render: filterRenders.decimalRange(),
+  },
+}
+
+function PlanoPeriodoListFilter(props) {
+  const rawFilter = useSelector(selectors.selectRawFilter);
+  const dispatch = useDispatch();
+  const [expanded, setExpanded] = useState(false);
+
+  const [initialValues] = useState(() => {
+    return {
+      ...emptyValues,
+      ...rawFilter,
+    };
+  });
+
+  const form = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: initialValues,
+    mode: 'all',
+  });
+
+  useEffect(() => {
+    dispatch(actions.doFetch(schema.cast(initialValues), rawFilter));
+    // eslint-disable-next-line
+  }, [dispatch]);
+
+  const onSubmit = (values) => {
+    const rawValues = form.getValues();
+    dispatch(actions.doFetch(values, rawValues));
+    setExpanded(false);
+  };
+
+  const onReset = () => {
+    Object.keys(emptyValues).forEach((key) => {
+      form.setValue(key, emptyValues[key]);
+    });
+    dispatch(actions.doReset());
+    setExpanded(false);
+  };
+
+  const onRemove = (key) => {
+    form.setValue(key, emptyValues[key]);
+    return form.handleSubmit(onSubmit)();
+  };
+
+  return (
+    <FilterWrapper>
+      <FilterAccordion
+        expanded={expanded}
+        onChange={(event, isExpanded) =>
+          setExpanded(isExpanded)
+        }
+      >
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <FilterPreview
+            values={rawFilter}
+            renders={previewRenders}
+            expanded={expanded}
+            onRemove={onRemove}
+          />
+        </AccordionSummary>
+        <AccordionDetails>
+          <FormProvider {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <Grid container spacing={2}>
+                <Grid item lg={6} xs={12}>
+                  <PlanoAutocompleteFormItem  
+                    name="plano"
+                    label={i18n('entities.planoPeriodo.fields.plano')}        
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <SelectFormItem
+                    name="periodicidade"
+                    label={i18n('entities.planoPeriodo.fields.periodicidade')}
+                    options={planoPeriodoEnumerators.periodicidade.map(
+                      (value) => ({
+                        value,
+                        label: i18n(
+                          `entities.planoPeriodo.enumerators.periodicidade.${value}`,
+                        ),
+                      }),
+                    )}
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <InputRangeFormItem
+                    name="valorRange"
+                    label={i18n('entities.planoPeriodo.fields.valorRange')}      
+                  />
+                </Grid>
+              </Grid>
+
+              <FilterButtons>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  disabled={props.loading}
+                  startIcon={<SearchIcon />}
+                  size="small"
+                >
+                  {i18n('common.search')}
+                </Button>
+
+                <Button
+                  type="button"
+                  onClick={onReset}
+                  disabled={props.loading}
+                  startIcon={<UndoIcon />}
+                  size="small"
+                >
+                  {i18n('common.reset')}
+                </Button>
+              </FilterButtons>
+            </form>
+          </FormProvider>
+        </AccordionDetails>
+      </FilterAccordion>
+    </FilterWrapper>
+  );
+}
+
+export default PlanoPeriodoListFilter;

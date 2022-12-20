@@ -1,0 +1,278 @@
+import {
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  Grid,
+} from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import UndoIcon from '@material-ui/icons/Undo';
+import React, { useEffect, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { i18n } from 'src/i18n';
+import actions from 'src/modules/pedido/list/pedidoListActions';
+import selectors from 'src/modules/pedido/list/pedidoListSelectors';
+import yupFilterSchemas from 'src/modules/shared/yup/yupFilterSchemas';
+import FilterWrapper, {
+  FilterButtons,
+} from 'src/view/shared/styles/FilterWrapper';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import filterRenders from 'src/modules/shared/filter/filterRenders';
+import FilterPreview from 'src/view/shared/filter/FilterPreview';
+import FilterAccordion from 'src/view/shared/filter/FilterAccordion';
+import InputRangeFormItem from 'src/view/shared/form/items/InputRangeFormItem';
+import UserAutocompleteFormItem from 'src/view/user/autocomplete/UserAutocompleteFormItem';
+import SelectFormItem from 'src/view/shared/form/items/SelectFormItem';
+import pedidoEnumerators from 'src/modules/pedido/pedidoEnumerators';
+import DatePickerRangeFormItem from 'src/view/shared/form/items/DatePickerRangeFormItem';
+import ClienteAutocompleteFormItem from 'src/view/cliente/autocomplete/ClienteAutocompleteFormItem';
+import PlanoAutocompleteFormItem from 'src/view/plano/autocomplete/PlanoAutocompleteFormItem';
+
+const schema = yup.object().shape({
+  cliente: yupFilterSchemas.relationToOne(
+    i18n('entities.pedido.fields.cliente'),
+  ),
+  plano: yupFilterSchemas.relationToOne(
+    i18n('entities.pedido.fields.plano'),
+  ),
+  indicadoPor: yupFilterSchemas.relationToOne(
+    i18n('entities.pedido.fields.indicadoPor'),
+  ),
+  dataInicioRange: yupFilterSchemas.dateRange(
+    i18n('entities.pedido.fields.dataInicioRange'),
+  ),
+  dataTerminoRange: yupFilterSchemas.dateRange(
+    i18n('entities.pedido.fields.dataTerminoRange'),
+  ),
+  dataEmailCobrancaRange: yupFilterSchemas.dateRange(
+    i18n('entities.pedido.fields.dataEmailCobrancaRange'),
+  ),
+  valorPagoRange: yupFilterSchemas.decimalRange(
+    i18n('entities.pedido.fields.valorPagoRange'),
+  ),
+  plataformaDePagamento: yupFilterSchemas.enumerator(
+    i18n('entities.pedido.fields.plataformaDePagamento'),
+  ),
+  duracaoPlano: yupFilterSchemas.enumerator(
+    i18n('entities.pedido.fields.duracaoPlano'),
+  ),
+});
+
+const emptyValues = {
+  cliente: null,
+  plano: null,
+  indicadoPor: null,
+  dataInicioRange: [],
+  dataTerminoRange: [],
+  dataEmailCobrancaRange: [],
+  valorPagoRange: [],
+  plataformaDePagamento: null,
+  duracaoPlano: null,
+}
+
+const previewRenders = {
+  cliente: {
+      label: i18n('entities.pedido.fields.cliente'),
+      render: filterRenders.relationToOne(),
+    },
+  plano: {
+      label: i18n('entities.pedido.fields.plano'),
+      render: filterRenders.relationToOne(),
+    },
+  indicadoPor: {
+    label: i18n('entities.pedido.fields.indicadoPor'),
+    render: filterRenders.relationToOne(),
+  },
+  dataInicioRange: {
+    label: i18n('entities.pedido.fields.dataInicioRange'),
+    render: filterRenders.dateRange(),
+  },
+  dataTerminoRange: {
+    label: i18n('entities.pedido.fields.dataTerminoRange'),
+    render: filterRenders.dateRange(),
+  },
+  dataEmailCobrancaRange: {
+    label: i18n('entities.pedido.fields.dataEmailCobrancaRange'),
+    render: filterRenders.dateRange(),
+  },
+  valorPagoRange: {
+    label: i18n('entities.pedido.fields.valorPagoRange'),
+    render: filterRenders.decimalRange(),
+  },
+  plataformaDePagamento: {
+    label: i18n('entities.pedido.fields.plataformaDePagamento'),
+    render: filterRenders.enumerator('entities.pedido.enumerators.plataformaDePagamento',),
+  },
+  duracaoPlano: {
+    label: i18n('entities.pedido.fields.duracaoPlano'),
+    render: filterRenders.enumerator('entities.pedido.enumerators.duracaoPlano',),
+  },
+}
+
+function PedidoListFilter(props) {
+  const rawFilter = useSelector(selectors.selectRawFilter);
+  const dispatch = useDispatch();
+  const [expanded, setExpanded] = useState(false);
+
+  const [initialValues] = useState(() => {
+    return {
+      ...emptyValues,
+      ...rawFilter,
+    };
+  });
+
+  const form = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: initialValues,
+    mode: 'all',
+  });
+
+  useEffect(() => {
+    dispatch(actions.doFetch(schema.cast(initialValues), rawFilter));
+    // eslint-disable-next-line
+  }, [dispatch]);
+
+  const onSubmit = (values) => {
+    const rawValues = form.getValues();
+    dispatch(actions.doFetch(values, rawValues));
+    setExpanded(false);
+  };
+
+  const onReset = () => {
+    Object.keys(emptyValues).forEach((key) => {
+      form.setValue(key, emptyValues[key]);
+    });
+    dispatch(actions.doReset());
+    setExpanded(false);
+  };
+
+  const onRemove = (key) => {
+    form.setValue(key, emptyValues[key]);
+    return form.handleSubmit(onSubmit)();
+  };
+
+  return (
+    <FilterWrapper>
+      <FilterAccordion
+        expanded={expanded}
+        onChange={(event, isExpanded) =>
+          setExpanded(isExpanded)
+        }
+      >
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <FilterPreview
+            values={rawFilter}
+            renders={previewRenders}
+            expanded={expanded}
+            onRemove={onRemove}
+          />
+        </AccordionSummary>
+        <AccordionDetails>
+          <FormProvider {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <Grid container spacing={2}>
+                <Grid item lg={6} xs={12}>
+                  <ClienteAutocompleteFormItem  
+                    name="cliente"
+                    label={i18n('entities.pedido.fields.cliente')}        
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <PlanoAutocompleteFormItem  
+                    name="plano"
+                    label={i18n('entities.pedido.fields.plano')}        
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <UserAutocompleteFormItem  
+                    name="indicadoPor"
+                    label={i18n('entities.pedido.fields.indicadoPor')}        
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <DatePickerRangeFormItem
+                    name="dataInicioRange"
+                    label={i18n('entities.pedido.fields.dataInicioRange')}    
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <DatePickerRangeFormItem
+                    name="dataTerminoRange"
+                    label={i18n('entities.pedido.fields.dataTerminoRange')}    
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <DatePickerRangeFormItem
+                    name="dataEmailCobrancaRange"
+                    label={i18n('entities.pedido.fields.dataEmailCobrancaRange')}    
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <InputRangeFormItem
+                    name="valorPagoRange"
+                    label={i18n('entities.pedido.fields.valorPagoRange')}      
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <SelectFormItem
+                    name="plataformaDePagamento"
+                    label={i18n('entities.pedido.fields.plataformaDePagamento')}
+                    options={pedidoEnumerators.plataformaDePagamento.map(
+                      (value) => ({
+                        value,
+                        label: i18n(
+                          `entities.pedido.enumerators.plataformaDePagamento.${value}`,
+                        ),
+                      }),
+                    )}
+                  />
+                </Grid>
+                <Grid item lg={6} xs={12}>
+                  <SelectFormItem
+                    name="duracaoPlano"
+                    label={i18n('entities.pedido.fields.duracaoPlano')}
+                    options={pedidoEnumerators.duracaoPlano.map(
+                      (value) => ({
+                        value,
+                        label: i18n(
+                          `entities.pedido.enumerators.duracaoPlano.${value}`,
+                        ),
+                      }),
+                    )}
+                  />
+                </Grid>
+              </Grid>
+
+              <FilterButtons>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  disabled={props.loading}
+                  startIcon={<SearchIcon />}
+                  size="small"
+                >
+                  {i18n('common.search')}
+                </Button>
+
+                <Button
+                  type="button"
+                  onClick={onReset}
+                  disabled={props.loading}
+                  startIcon={<UndoIcon />}
+                  size="small"
+                >
+                  {i18n('common.reset')}
+                </Button>
+              </FilterButtons>
+            </form>
+          </FormProvider>
+        </AccordionDetails>
+      </FilterAccordion>
+    </FilterWrapper>
+  );
+}
+
+export default PedidoListFilter;

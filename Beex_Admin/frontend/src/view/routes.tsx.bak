@@ -1,0 +1,562 @@
+import Permissions from 'src/security/permissions';
+import config from 'src/config';
+const permissions = Permissions.values;
+
+const privateRoutes = [
+  {
+    path: '/',
+    loader: () =>
+      import('src/view/dashboard/DashboardPage'),
+    permissionRequired: null,
+    exact: true,
+  },
+
+  {
+    path: '/profile',
+    loader: () => import('src/view/auth/ProfileFormPage'),
+    permissionRequired: null,
+    exact: true,
+  },
+
+  {
+    path: '/password-change',
+    loader: () =>
+      import('src/view/auth/PasswordChangeFormPage'),
+    permissionRequired: null,
+    exact: true,
+  },
+
+  {
+    path: '/tenant',
+    loader: () =>
+      import('src/view/tenant/list/TenantListPage'),
+    permissionRequired: null,
+    exact: true,
+  },
+  {
+    path: '/tenant/new',
+    loader: () =>
+      import('src/view/tenant/form/TenantFormPage'),
+    permissionRequired: null,
+    exact: true,
+  },
+  {
+    path: '/tenant/:id/edit',
+    loader: () =>
+      import('src/view/tenant/form/TenantFormPage'),
+    permissionRequired: null,
+    exact: true,
+  },
+
+  config.isPlanEnabled && {
+    path: '/plan',
+    loader: () => import('src/view/plan/PlanPage'),
+    permissionRequired: permissions.planRead,
+    exact: true,
+  },
+
+  {
+    path: '/user',
+    loader: () => import('src/view/user/list/UserPage'),
+    permissionRequired: permissions.userRead,
+    exact: true,
+  },
+
+  {
+    path: '/user/new',
+    loader: () => import('src/view/user/new/UserNewPage'),
+    permissionRequired: permissions.userCreate,
+    exact: true,
+  },
+
+  {
+    path: '/user/importer',
+    loader: () =>
+      import('src/view/user/importer/UserImporterPage'),
+    permissionRequired: permissions.userImport,
+    exact: true,
+  },
+  {
+    path: '/user/:id/edit',
+    loader: () => import('src/view/user/edit/UserEditPage'),
+    permissionRequired: permissions.userEdit,
+    exact: true,
+  },
+  {
+    path: '/user/:id',
+    loader: () => import('src/view/user/view/UserViewPage'),
+    permissionRequired: permissions.userRead,
+    exact: true,
+  },
+
+  {
+    path: '/audit-logs',
+    loader: () => import('src/view/auditLog/AuditLogPage'),
+    permissionRequired: permissions.auditLogRead,
+  },
+
+  {
+    path: '/settings',
+    loader: () =>
+      import('src/view/settings/SettingsFormPage'),
+    permissionRequired: permissions.settingsEdit,
+  },
+  
+  {
+    path: '/cliente',
+    loader: () =>
+      import('src/view/cliente/list/ClienteListPage'),
+    permissionRequired: permissions.clienteRead,
+    exact: true,
+  },
+  {
+    path: '/cliente/new',
+    loader: () =>
+      import('src/view/cliente/form/ClienteFormPage'),
+    permissionRequired: permissions.clienteCreate,
+    exact: true,
+  },
+  {
+    path: '/cliente/importer',
+    loader: () =>
+      import(
+        'src/view/cliente/importer/ClienteImporterPage'
+      ),
+    permissionRequired: permissions.clienteImport,
+    exact: true,
+  },
+  {
+    path: '/cliente/:id/edit',
+    loader: () =>
+      import('src/view/cliente/form/ClienteFormPage'),
+    permissionRequired: permissions.clienteEdit,
+    exact: true,
+  },
+  {
+    path: '/cliente/:id',
+    loader: () =>
+      import('src/view/cliente/view/ClienteViewPage'),
+    permissionRequired: permissions.clienteRead,
+    exact: true,
+  },
+
+  {
+    path: '/pais',
+    loader: () =>
+      import('src/view/pais/list/PaisListPage'),
+    permissionRequired: permissions.paisRead,
+    exact: true,
+  },
+  {
+    path: '/pais/new',
+    loader: () =>
+      import('src/view/pais/form/PaisFormPage'),
+    permissionRequired: permissions.paisCreate,
+    exact: true,
+  },
+  {
+    path: '/pais/importer',
+    loader: () =>
+      import(
+        'src/view/pais/importer/PaisImporterPage'
+      ),
+    permissionRequired: permissions.paisImport,
+    exact: true,
+  },
+  {
+    path: '/pais/:id/edit',
+    loader: () =>
+      import('src/view/pais/form/PaisFormPage'),
+    permissionRequired: permissions.paisEdit,
+    exact: true,
+  },
+  {
+    path: '/pais/:id',
+    loader: () =>
+      import('src/view/pais/view/PaisViewPage'),
+    permissionRequired: permissions.paisRead,
+    exact: true,
+  },
+
+  {
+    path: '/corretora',
+    loader: () =>
+      import('src/view/corretora/list/CorretoraListPage'),
+    permissionRequired: permissions.corretoraRead,
+    exact: true,
+  },
+  {
+    path: '/corretora/new',
+    loader: () =>
+      import('src/view/corretora/form/CorretoraFormPage'),
+    permissionRequired: permissions.corretoraCreate,
+    exact: true,
+  },
+  {
+    path: '/corretora/importer',
+    loader: () =>
+      import(
+        'src/view/corretora/importer/CorretoraImporterPage'
+      ),
+    permissionRequired: permissions.corretoraImport,
+    exact: true,
+  },
+  {
+    path: '/corretora/:id/edit',
+    loader: () =>
+      import('src/view/corretora/form/CorretoraFormPage'),
+    permissionRequired: permissions.corretoraEdit,
+    exact: true,
+  },
+  {
+    path: '/corretora/:id',
+    loader: () =>
+      import('src/view/corretora/view/CorretoraViewPage'),
+    permissionRequired: permissions.corretoraRead,
+    exact: true,
+  },
+
+  {
+    path: '/conta',
+    loader: () =>
+      import('src/view/conta/list/ContaListPage'),
+    permissionRequired: permissions.contaRead,
+    exact: true,
+  },
+  {
+    path: '/conta/new',
+    loader: () =>
+      import('src/view/conta/form/ContaFormPage'),
+    permissionRequired: permissions.contaCreate,
+    exact: true,
+  },
+  {
+    path: '/conta/importer',
+    loader: () =>
+      import(
+        'src/view/conta/importer/ContaImporterPage'
+      ),
+    permissionRequired: permissions.contaImport,
+    exact: true,
+  },
+  {
+    path: '/conta/:id/edit',
+    loader: () =>
+      import('src/view/conta/form/ContaFormPage'),
+    permissionRequired: permissions.contaEdit,
+    exact: true,
+  },
+  {
+    path: '/conta/:id',
+    loader: () =>
+      import('src/view/conta/view/ContaViewPage'),
+    permissionRequired: permissions.contaRead,
+    exact: true,
+  },
+
+  {
+    path: '/plano',
+    loader: () =>
+      import('src/view/plano/list/PlanoListPage'),
+    permissionRequired: permissions.planoRead,
+    exact: true,
+  },
+  {
+    path: '/plano/new',
+    loader: () =>
+      import('src/view/plano/form/PlanoFormPage'),
+    permissionRequired: permissions.planoCreate,
+    exact: true,
+  },
+  {
+    path: '/plano/importer',
+    loader: () =>
+      import(
+        'src/view/plano/importer/PlanoImporterPage'
+      ),
+    permissionRequired: permissions.planoImport,
+    exact: true,
+  },
+  {
+    path: '/plano/:id/edit',
+    loader: () =>
+      import('src/view/plano/form/PlanoFormPage'),
+    permissionRequired: permissions.planoEdit,
+    exact: true,
+  },
+  {
+    path: '/plano/:id',
+    loader: () =>
+      import('src/view/plano/view/PlanoViewPage'),
+    permissionRequired: permissions.planoRead,
+    exact: true,
+  },
+
+  {
+    path: '/ordem',
+    loader: () =>
+      import('src/view/ordem/list/OrdemListPage'),
+    permissionRequired: permissions.ordemRead,
+    exact: true,
+  },
+  {
+    path: '/ordem/new',
+    loader: () =>
+      import('src/view/ordem/form/OrdemFormPage'),
+    permissionRequired: permissions.ordemCreate,
+    exact: true,
+  },
+  {
+    path: '/ordem/importer',
+    loader: () =>
+      import(
+        'src/view/ordem/importer/OrdemImporterPage'
+      ),
+    permissionRequired: permissions.ordemImport,
+    exact: true,
+  },
+  {
+    path: '/ordem/:id/edit',
+    loader: () =>
+      import('src/view/ordem/form/OrdemFormPage'),
+    permissionRequired: permissions.ordemEdit,
+    exact: true,
+  },
+  {
+    path: '/ordem/:id',
+    loader: () =>
+      import('src/view/ordem/view/OrdemViewPage'),
+    permissionRequired: permissions.ordemRead,
+    exact: true,
+  },
+
+  {
+    path: '/robo',
+    loader: () =>
+      import('src/view/robo/list/RoboListPage'),
+    permissionRequired: permissions.roboRead,
+    exact: true,
+  },
+  {
+    path: '/robo/new',
+    loader: () =>
+      import('src/view/robo/form/RoboFormPage'),
+    permissionRequired: permissions.roboCreate,
+    exact: true,
+  },
+  {
+    path: '/robo/importer',
+    loader: () =>
+      import(
+        'src/view/robo/importer/RoboImporterPage'
+      ),
+    permissionRequired: permissions.roboImport,
+    exact: true,
+  },
+  {
+    path: '/robo/:id/edit',
+    loader: () =>
+      import('src/view/robo/form/RoboFormPage'),
+    permissionRequired: permissions.roboEdit,
+    exact: true,
+  },
+  {
+    path: '/robo/:id',
+    loader: () =>
+      import('src/view/robo/view/RoboViewPage'),
+    permissionRequired: permissions.roboRead,
+    exact: true,
+  },
+
+  {
+    path: '/pedido',
+    loader: () =>
+      import('src/view/pedido/list/PedidoListPage'),
+    permissionRequired: permissions.pedidoRead,
+    exact: true,
+  },
+  {
+    path: '/pedido/new',
+    loader: () =>
+      import('src/view/pedido/form/PedidoFormPage'),
+    permissionRequired: permissions.pedidoCreate,
+    exact: true,
+  },
+  {
+    path: '/pedido/importer',
+    loader: () =>
+      import(
+        'src/view/pedido/importer/PedidoImporterPage'
+      ),
+    permissionRequired: permissions.pedidoImport,
+    exact: true,
+  },
+  {
+    path: '/pedido/:id/edit',
+    loader: () =>
+      import('src/view/pedido/form/PedidoFormPage'),
+    permissionRequired: permissions.pedidoEdit,
+    exact: true,
+  },
+  {
+    path: '/pedido/:id',
+    loader: () =>
+      import('src/view/pedido/view/PedidoViewPage'),
+    permissionRequired: permissions.pedidoRead,
+    exact: true,
+  },
+
+  {
+    path: '/registro-diario',
+    loader: () =>
+      import('src/view/registroDiario/list/RegistroDiarioListPage'),
+    permissionRequired: permissions.registroDiarioRead,
+    exact: true,
+  },
+  {
+    path: '/registro-diario/new',
+    loader: () =>
+      import('src/view/registroDiario/form/RegistroDiarioFormPage'),
+    permissionRequired: permissions.registroDiarioCreate,
+    exact: true,
+  },
+  {
+    path: '/registro-diario/importer',
+    loader: () =>
+      import(
+        'src/view/registroDiario/importer/RegistroDiarioImporterPage'
+      ),
+    permissionRequired: permissions.registroDiarioImport,
+    exact: true,
+  },
+  {
+    path: '/registro-diario/:id/edit',
+    loader: () =>
+      import('src/view/registroDiario/form/RegistroDiarioFormPage'),
+    permissionRequired: permissions.registroDiarioEdit,
+    exact: true,
+  },
+  {
+    path: '/registro-diario/:id',
+    loader: () =>
+      import('src/view/registroDiario/view/RegistroDiarioViewPage'),
+    permissionRequired: permissions.registroDiarioRead,
+    exact: true,
+  },
+
+  {
+    path: '/check-list',
+    loader: () =>
+      import('src/view/checkList/list/CheckListListPage'),
+    permissionRequired: permissions.checkListRead,
+    exact: true,
+  },
+  {
+    path: '/check-list/new',
+    loader: () =>
+      import('src/view/checkList/form/CheckListFormPage'),
+    permissionRequired: permissions.checkListCreate,
+    exact: true,
+  },
+  {
+    path: '/check-list/importer',
+    loader: () =>
+      import(
+        'src/view/checkList/importer/CheckListImporterPage'
+      ),
+    permissionRequired: permissions.checkListImport,
+    exact: true,
+  },
+  {
+    path: '/check-list/:id/edit',
+    loader: () =>
+      import('src/view/checkList/form/CheckListFormPage'),
+    permissionRequired: permissions.checkListEdit,
+    exact: true,
+  },
+  {
+    path: '/check-list/:id',
+    loader: () =>
+      import('src/view/checkList/view/CheckListViewPage'),
+    permissionRequired: permissions.checkListRead,
+    exact: true,
+  },
+].filter(Boolean);
+
+const publicRoutes = [
+  {
+    path: '/auth/signin',
+    loader: () => import('src/view/auth/SigninPage'),
+  },
+  {
+    path: '/auth/signup',
+    loader: () => import('src/view/auth/SignupPage'),
+  },
+  {
+    path: '/auth/forgot-password',
+    loader: () =>
+      import('src/view/auth/ForgotPasswordPage'),
+  },
+].filter(Boolean);
+
+const emptyTenantRoutes = [
+  {
+    path: '/auth/tenant',
+    loader: () => import('src/view/auth/TenantPage'),
+  },
+].filter(Boolean);
+
+const emptyPermissionsRoutes = [
+  {
+    path: '/auth/empty-permissions',
+    loader: () =>
+      import('src/view/auth/EmptyPermissionsPage'),
+  },
+].filter(Boolean);
+
+const emailUnverifiedRoutes = [
+  {
+    path: '/auth/email-unverified',
+    loader: () =>
+      import('src/view/auth/EmailUnverifiedPage'),
+  },
+].filter(Boolean);
+
+const simpleRoutes = [
+  {
+    path: '/auth/password-reset',
+    loader: () => import('src/view/auth/PasswordResetPage'),
+  },
+  {
+    path: '/auth/invitation',
+    loader: () => import('src/view/auth/InvitationPage'),
+  },
+  {
+    path: '/auth/verify-email',
+    loader: () => import('src/view/auth/VerifyEmailPage'),
+  },
+  {
+    path: '/403',
+    loader: () =>
+      import('src/view/shared/errors/Error403Page'),
+  },
+  {
+    path: '/500',
+    loader: () =>
+      import('src/view/shared/errors/Error500Page'),
+  },
+  {
+    path: '**',
+    loader: () =>
+      import('src/view/shared/errors/Error404Page'),
+  },
+].filter(Boolean);
+
+export default {
+  privateRoutes,
+  publicRoutes,
+  emptyTenantRoutes,
+  emptyPermissionsRoutes,
+  emailUnverifiedRoutes,
+  simpleRoutes,
+};
